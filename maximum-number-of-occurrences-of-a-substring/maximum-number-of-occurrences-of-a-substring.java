@@ -18,7 +18,7 @@ class Solution {
                      cnt.put(c,cnt.get(c)-1);
                  ss++;
              }
-             if(cnt.size()<=maxLetters &&ee-ss+1>=minSize )
+             if(cnt.size()<=maxLetters &&ee-ss+1==minSize )
                 m.put(s.substring(ss,ee+1),m.getOrDefault(s.substring(ss,ee+1),0)+1);
              ee++;
         }
