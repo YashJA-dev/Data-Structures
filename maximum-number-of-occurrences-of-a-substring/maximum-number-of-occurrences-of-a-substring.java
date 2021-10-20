@@ -1,30 +1,24 @@
 class Solution {
-    public int maxFreq(String s, int maxLetters, int minSize, int maxSize) {
-        Map<String,Integer> m = new HashMap<>();
-        int ss = 0 ;
-        int ee = 0;
-        Map<Character,Integer> cnt = new HashMap<>();
-
-        while( ee < s.length())
-        {
-            Character cur =s.charAt(ee);
-            cnt.put(cur,cnt.getOrDefault(cur,0)+1);
-             while( ee-ss+1 > minSize  )
-             {
-                 Character c =s.charAt(ss);
-                 if(cnt.get(c)==1)
-                     cnt.remove(c);
-                 else
-                     cnt.put(c,cnt.get(c)-1);
-                 ss++;
-             }
-             if(cnt.size()<=maxLetters &&ee-ss+1==minSize )
-                m.put(s.substring(ss,ee+1),m.getOrDefault(s.substring(ss,ee+1),0)+1);
-             ee++;
+    public int maxFreq(String s, int maxchar, int minsize, int maxSize) {
+        Map<Character,Integer> map=new HashMap<>();
+        Map<String,Integer> substring=new HashMap<>();
+        int l=0,r=0;
+        while(r<s.length()){
+            char ch=s.charAt(r);
+            map.put(ch,map.getOrDefault(ch,0)+1);
+            while((r-l+1)>minsize){
+                ch=s.charAt(l);
+                map.put(ch,map.getOrDefault(ch,0)-1);
+                if(map.get(ch)==0)map.remove(ch);
+                l++;
+            }
+            if(map.size()<=maxchar&&(r-l+1)==minsize){
+                System.out.println(s.substring(l,r));
+                substring.put(s.substring(l,r+1),substring.getOrDefault(s.substring(l,r+1),0)+1);
+            }
+            r++;
         }
-        int ans  = 0 ;
-        for( int it : m.values())
-            ans= Math.max(ans,it);
-        return ans;
+       int ans=0;
+        return (substring.size()==0)?0:(Collections.max(substring.values()));
     }
 }
