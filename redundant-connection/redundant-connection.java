@@ -31,7 +31,7 @@ class DSU{
     public void union(int u,int v){
         int parentOfU=findParent(u);
         int parentOfV=findParent(v);
-        if(u==3&&v==5)System.out.println(parentOfU+" "+parentOfV);
+        // if(u==3&&v==5)System.out.println(parentOfU+" "+parentOfV);
         if(size[parentOfU]>=size[parentOfV]){
             parent[parentOfV]=parentOfU;
             size[parentOfU]+=size[parentOfV];
