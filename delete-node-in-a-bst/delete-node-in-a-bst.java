@@ -14,29 +14,32 @@
  * }
  */
 class Solution {
-    
     public TreeNode deleteNode(TreeNode root, int key) {
-        if(root==null)return root;
-        else if(root.val>key)root.left=deleteNode(root.left,key);
-        else if(root.val<key)root.right=deleteNode(root.right,key);
+        return deleteInBST(root,key);
+    }
+     public TreeNode deleteInBST(TreeNode root,int val){
+        if(root==null)return null;
+        if(root.val>val)root.left=deleteInBST(root.left,val);
+        else if(root.val<val)root.right=deleteInBST(root.right,val);
         else{
-            if(root.left==null&&root.right==null){
-               System.out.println(root.val);
-                return null;
-            }
+            if(root.left==null&&root.right==null)return null;
             else if(root.left==null)return root.right;
             else if(root.right==null)return root.left;
             else{
-                TreeNode max=maxOfRight(root.left);
+                TreeNode max=maxi(root.left);
+                System.out.println(max.val);
                 root.val=max.val;
-                root.left=deleteNode(root.left,root.val);
+                root.left=deleteInBST(root.left,max.val);
+                // printBst(root);
+
                 return root;
-            }
+            }    
         }
         return root;
     }
-    public TreeNode maxOfRight(TreeNode root){
+    private TreeNode maxi(TreeNode root){
         if(root.right==null)return root;
-        return maxOfRight(root.right);
+        return maxi(root.right);
+        
     }
 }
