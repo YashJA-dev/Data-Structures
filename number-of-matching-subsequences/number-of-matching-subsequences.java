@@ -24,14 +24,14 @@ class Solution {
                 if(map.containsKey(ch)){
                     List<Integer> li=map.get(ch);
                     int ind=count.get(ch);
-                    System.out.println(ind+" "+li.size()+" "+ch+" ");
+                    // System.out.println(ind+" "+li.size()+" "+ch+" ");
                     if(li.size()>ind){
                         int ind_li=li.get(ind);
                         ind++;
                         while(pre>ind_li&&li.size()>ind){
                             ind_li=li.get(ind++);
                         }
-                        System.out.println(ind_li);
+                        // System.out.println(ind_li);
                         if(li.size()>=ind&&pre>ind_li){
                             i--;
                             break;
