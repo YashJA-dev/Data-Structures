@@ -1,17 +1,45 @@
 class Solution {
 
-    public int countVowelSubstrings(String word) {
+    public int countVowelSubstrings(String s) {
         int count = 0;
-        Map<Character, Integer> lastSeen = new HashMap<>(Map.of('a', -1, 'e', -1, 'i', -1, 'o', -1, 'u', -1));
-        for (int i = 0, lastInvalidPos = -1; i < word.length(); i++) {
-            if (lastSeen.containsKey(word.charAt(i))) {
-                lastSeen.put(word.charAt(i), i);
-                int minIdx = lastSeen.values().stream().reduce(Integer::min).get();
-                count += Math.max(minIdx - lastInvalidPos, 0);
-            } else {
-                lastInvalidPos = i;
+        // Vishnu JI k charan
+        // Yash Ishu
+        Map<Character, Integer> map = new HashMap<>();
+        Set<Character> set=new HashSet<>();
+        set.add('a');
+        set.add('e');
+        set.add('i');
+        set.add('o');
+        set.add('u');
+        
+        int at5=findAtMost(s,5,set,map);
+        map.clear();
+        int at4=findAtMost(s,4,set,map);
+        return at5-at4;
+    }
+    public int findAtMost(String s,int k,Set<Character> set,Map<Character, Integer> map){
+        int i=0,j=0,n=s.length();
+        int c=0;
+        while(j<n){
+            char ch=s.charAt(j);
+            if(!set.contains(ch)){
+                map.clear();
+                j++;
+                i=j;
+                continue;
             }
+            map.put(ch,map.getOrDefault(ch,0)+1);
+            while(map.size()>k){
+                char car=s.charAt(i);
+                map.put(car,map.get(car)-1);
+                if(map.get(car)==0)map.remove(car);
+                i++;
+            }
+           
+            c+=j-i+1;
+            j++;
         }
-        return count;
+        System.out.println(c);
+        return c;
     }
 }
